@@ -18,9 +18,11 @@ steps:
   - run:
       name: Build monorepo
       command: yarn bootstrap -- concurrency=<< parameters.concurrency >> --stream
+  - run:
+      name: Publish monorepo
+      command: node scripts/circleci-local-publish/index.js << pipeline.number >>
   # Persist the workspace with all packages already built
   - persist_to_workspace:
       root: ./
       paths:
         - "packages/"
-        - "node_modules"
